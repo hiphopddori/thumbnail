@@ -15,8 +15,23 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compile group: 'net.coobird', name: 'thumbnailator', version: '0.4.13'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	// implementation group: 'net.coobird', name: 'thumbnailator', version: '0.4.13'
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
+	// compile group: 'net.coobird', name: 'thumbnailator', version: '0.4.13'
+	implementation files('libs/ddoriThumbnail.jar')
+	compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.0'
+	compile 'org.projectlombok:lombok:1.18.16'
+	compile group: 'com.fasterxml.jackson.dataformat',name: 'jackson-dataformat-xml', version: '2.10.0'
+
+	runtime 'org.glassfish.jaxb:jaxb-runtime'
+
+
+	//reactor
+	compile "io.projectreactor:reactor-core:3.4.4"
+
+
+
 }
 
 test {
