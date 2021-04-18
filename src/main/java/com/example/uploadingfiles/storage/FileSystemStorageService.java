@@ -6,10 +6,10 @@ import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.stream.Stream;
 
-import net.coobird.thumbnailator.Thumbnails;
+//import net.coobird.thumbnailator.Thumbnailator;
+//import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -17,6 +17,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+import com.ddori.util.Thumbnail;
+
+/* 썸네일 라이브러리 추가
+https://github.com/coobird/thumbnailator
+*/
 
 @Service
 public class FileSystemStorageService implements StorageService {
@@ -30,7 +35,17 @@ public class FileSystemStorageService implements StorageService {
 
 	@Override
 	public void store(MultipartFile file) {
+		Thumbnail ddoriThumbnail = new Thumbnail(this.rootLocation);
 		try {
+			ddoriThumbnail.make(file);
+		}
+		catch (Exception e) {
+			throw new StorageException("Failed to store file.", e);
+		}
+		return;
+		/*
+		try {
+
 			if (file.isEmpty()) {
 				throw new StorageException("Failed to store empty file.");
 			}
@@ -54,6 +69,7 @@ public class FileSystemStorageService implements StorageService {
 		catch (IOException e) {
 			throw new StorageException("Failed to store file.", e);
 		}
+		 */
 	}
 
 	@Override
